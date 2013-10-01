@@ -1,0 +1,52 @@
+[
+    {
+      "id": 0,
+      "title": "StrengthsFinder 2.0",
+      "author": "Tom Rath"
+    },
+    {
+      "id": 1,
+      "title": "Inferno",
+      "author": "Dan Brown"
+    },
+    {
+      "id": 2,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald"
+    },
+    {
+      "id": 3,
+      "title": "Oh, the Places You'll Go!",
+      "author": "Dr. Seuss"
+    },
+    {
+      "id": 4,
+      "title": "Wonder",
+      "author": "R. J. Palacio"
+    },
+    {
+      "id": 5,
+      "title": "And the Mountains Echoed",
+      "author": "Khaled Hosseini"
+    },
+    {
+      "id": 6,
+      "title": "The Fault in Our Stars",
+      "author": "John Green"
+    },
+    {
+      "id": 7,
+      "title": "The Legend of Zelda: Hyrule Historia",
+      "author": "Akira Himekawa"
+    },
+    {
+      "id": 8,
+      "title": "Gone Girl: A Novel",
+      "author": "Gillian Flynn"
+    },
+    {
+      "id": 9,
+      "title": "Joyland (Hard Case Crime)",
+      "author": "Stephen King"
+    }
+]

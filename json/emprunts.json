@@ -1,0 +1,17 @@
+[
+    {
+        "emprunteur_id": 2,
+        "livre_ids": [0, 3, 5],
+        "date": "21/02/2013"
+    },
+    {
+        "emprunteur_id": 3,
+        "livre_ids": [1],
+        "date": "25/02/2013"
+    },
+    {
+        "emprunteur_id": 6,
+        "livre_ids": [2, 9],
+        "date": "27/02/2013"
+    },
+]
