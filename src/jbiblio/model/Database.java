@@ -62,4 +62,14 @@ public class Database {
         return suscribers;
     }
 
+    // return null if there is no book with this id
+    public Book getBookById(Integer id) {
+        for(Book book: books) {
+            if(book.id == id) {
+                return book;
+            }
+        }
+        return null;
+    }
+
 }

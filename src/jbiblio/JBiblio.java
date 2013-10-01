@@ -45,6 +45,9 @@ public class JBiblio {
 
         // list all borrowers in database
         listBorrowers();
+
+        // get a book by its id
+        System.out.println(database.getBookById(5));
     }
 
     public static void listBooks() {
