@@ -65,7 +65,7 @@ public class JBiblio {
             JSONObject bookJson = books.getJSONObject(i);
             Book book = Book.fromJSONObject(bookJson);
 
-            System.out.println(" * (" + book.id + ") " + book.title + " " + book.author);
+            System.out.println(" * " + book);
         }
     }
 

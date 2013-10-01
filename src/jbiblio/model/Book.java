@@ -30,6 +30,11 @@ public class Book {
         this.author = author;
     }
 
+    @Override
+    public String toString() {
+        return "(" + id + ") " + title + " - " + author;
+    }
+
     public static Book fromJSONObject(JSONObject book) {
         Integer id = book.getInt("id");
         String title = book.getString("title");
