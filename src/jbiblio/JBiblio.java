@@ -17,6 +17,7 @@ package jbiblio;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import jbiblio.model.Book;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import utils.FileReader;
@@ -61,8 +62,10 @@ public class JBiblio {
     public static void listBooks() {
         System.out.println("List of books:");
         for(int i = 0; i < books.size(); i++) {
-            JSONObject book = books.getJSONObject(i);
-            System.out.println(" * " + book.getString("title"));
+            JSONObject bookJson = books.getJSONObject(i);
+            Book book = Book.fromJSONObject(bookJson);
+
+            System.out.println(" * (" + book.id + ") " + book.title + " " + book.author);
         }
     }
 
