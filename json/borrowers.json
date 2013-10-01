@@ -1,0 +1,17 @@
+[
+    {
+        "suscriber_id": 2,
+        "book_ids": [0, 3, 5],
+        "date": "21/02/2013"
+    },
+    {
+        "suscriber_id": 3,
+        "book_ids": [1],
+        "date": "25/02/2013"
+    },
+    {
+        "suscriber_id": 6,
+        "book_ids": [2, 9],
+        "date": "27/02/2013"
+    },
+]
