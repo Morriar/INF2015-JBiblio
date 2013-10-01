@@ -18,6 +18,7 @@ package jbiblio;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import jbiblio.model.Book;
+import jbiblio.model.Database;
 import jbiblio.model.Suscriber;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -27,15 +28,14 @@ import utils.FileReader;
  *
  */
 public class JBiblio {
-    static JSONArray books;
-    static JSONArray suscribers;
-    static JSONArray borrowers;
+
+    static Database database;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        loadDataBase();
+        JBiblio.database = new Database();
 
         // list all books in database
         listBooks();
@@ -47,45 +47,27 @@ public class JBiblio {
         listBorrowers();
     }
 
-    public static void loadDataBase() throws FileNotFoundException, IOException {
-        // load files
-        String booksStr = FileReader.loadFileIntoString("json/books.json", "utf-8");
-        String suscribersStr = FileReader.loadFileIntoString("json/suscribers.json", "utf-8");
-        String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
-        // parse json
-        JBiblio.books = JSONArray.fromObject(booksStr);
-        JBiblio.suscribers = JSONArray.fromObject(suscribersStr);
-        JBiblio.borrowers = JSONArray.fromObject(borrowersStr);
-
-
-    }
-
     public static void listBooks() {
         System.out.println("List of books:");
-        for(int i = 0; i < books.size(); i++) {
-            JSONObject bookJson = books.getJSONObject(i);
-            Book book = Book.fromJSONObject(bookJson);
-
+        for (Book book: database.books) {
             System.out.println(" * " + book);
         }
     }
 
     public static void listSuscribers() {
         System.out.println("List of suscribers:");
-        for(int i = 0; i < suscribers.size(); i++) {
-            JSONObject suscriberJson = suscribers.getJSONObject(i);
-            Suscriber suscriber = Suscriber.fromJSONObject(suscriberJson);
-
+        for (Suscriber suscriber: database.suscribers) {
             System.out.println(" * " + suscriber);
         }
     }
 
-    public static void listBorrowers() {
+    public static void listBorrowers() throws FileNotFoundException, IOException {
+        String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
+        JSONArray borrowers = JSONArray.fromObject(borrowersStr);
         System.out.println("List of borrowers:");
-        for(int i = 0; i < borrowers.size(); i++) {
+        for (int i = 0; i < borrowers.size(); i++) {
             JSONObject borrower = borrowers.getJSONObject(i);
             System.out.println(" * " + borrower.getString("date"));
         }
     }
-
 }
