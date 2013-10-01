@@ -52,7 +52,7 @@ public class JBiblio {
 
     public static void listBooks() {
         System.out.println("List of books:");
-        for (Book book: database.books) {
+        for (Book book: database.books.values()) {
             System.out.println(" * " + book);
         }
     }

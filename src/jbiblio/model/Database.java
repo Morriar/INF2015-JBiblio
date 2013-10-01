@@ -18,7 +18,9 @@ package jbiblio.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import jbiblio.JBiblio;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -28,7 +30,7 @@ import utils.FileReader;
  * A database unify datas from the json file
  */
 public class Database {
-    public List<Book> books;
+    public Map<Integer, Book> books;
     public List<Suscriber> suscribers;
 
     public Database() throws FileNotFoundException, IOException {
@@ -36,14 +38,15 @@ public class Database {
         this.suscribers = loadSuscribers();
     }
 
-    private List<Book> loadBooks() throws FileNotFoundException, IOException {
+    private Map<Integer, Book> loadBooks() throws FileNotFoundException, IOException {
         String booksStr = FileReader.loadFileIntoString("json/books.json", "utf-8");
         JSONArray booksJson = JSONArray.fromObject(booksStr);
 
-        List<Book> books = new ArrayList<Book>();
+        Map<Integer, Book> books = new HashMap<Integer, Book>();
         for (int i = 0; i < booksJson.size(); i++) {
             JSONObject bookJson = booksJson.getJSONObject(i);
-            books.add(Book.fromJSONObject(bookJson));
+            Book book = Book.fromJSONObject(bookJson);
+            books.put(i, book);
         }
 
         return books;
@@ -64,10 +67,8 @@ public class Database {
 
     // return null if there is no book with this id
     public Book getBookById(Integer id) {
-        for(Book book: books) {
-            if(book.id == id) {
-                return book;
-            }
+        if(books.containsKey(id)) {
+            return books.get(id);
         }
         return null;
     }
