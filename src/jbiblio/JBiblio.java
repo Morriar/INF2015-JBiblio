@@ -15,16 +15,71 @@
  */
 package jbiblio;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import utils.FileReader;
+
 /**
  *
  */
 public class JBiblio {
+    static JSONArray books;
+    static JSONArray suscribers;
+    static JSONArray borrowers;
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        loadDataBase();
+
+        // list all books in database
+        listBooks();
+
+        // list all suscribers in database
+        listSuscribers();
+
+        // list all borrowers in database
+        listBorrowers();
+    }
+
+    public static void loadDataBase() throws FileNotFoundException, IOException {
+        // load files
+        String booksStr = FileReader.loadFileIntoString("json/books.json", "utf-8");
+        String suscribersStr = FileReader.loadFileIntoString("json/suscribers.json", "utf-8");
+        String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
+        // parse json
+        JBiblio.books = JSONArray.fromObject(booksStr);
+        JBiblio.suscribers = JSONArray.fromObject(suscribersStr);
+        JBiblio.borrowers = JSONArray.fromObject(borrowersStr);
+
+
+    }
+
+    public static void listBooks() {
+        System.out.println("List of books:");
+        for(int i = 0; i < books.size(); i++) {
+            JSONObject book = books.getJSONObject(i);
+            System.out.println(" * " + book.getString("title"));
+        }
+    }
+
+    public static void listSuscribers() {
+        System.out.println("List of suscribers:");
+        for(int i = 0; i < suscribers.size(); i++) {
+            JSONObject suscriber = suscribers.getJSONObject(i);
+            System.out.println(" * " + suscriber.getString("firstname") +  " " + suscriber.getString("lastname"));
+        }
+    }
+
+    public static void listBorrowers() {
+        System.out.println("List of borrowers:");
+        for(int i = 0; i < borrowers.size(); i++) {
+            JSONObject borrower = borrowers.getJSONObject(i);
+            System.out.println(" * " + borrower.getString("date"));
+        }
     }
 
 }
