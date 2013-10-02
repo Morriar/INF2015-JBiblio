@@ -37,43 +37,20 @@ public class JBiblio {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         JBiblio.database = new Database();
 
-        // list all books in database
-        listBooks();
-
         // list all suscribers in database
         listSuscribers();
-
-        // list all borrowers in database
-        listBorrowers();
-
-        // get a book by its id
-        System.out.println(database.getBookById(5));
-
-        // get a suscriber by its id
-        System.out.println(database.getSuscriberById(5));
-    }
-
-    public static void listBooks() {
-        System.out.println("List of books:");
-        for (Book book: database.getBooks()) {
-            System.out.println(" * " + book);
-        }
     }
 
     public static void listSuscribers() {
         System.out.println("List of suscribers:");
         for (Suscriber suscriber: database.getSuscribers()) {
-            System.out.println(" * " + suscriber);
-        }
-    }
-
-    public static void listBorrowers() throws FileNotFoundException, IOException {
-        String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
-        JSONArray borrowers = JSONArray.fromObject(borrowersStr);
-        System.out.println("List of borrowers:");
-        for (int i = 0; i < borrowers.size(); i++) {
-            JSONObject borrower = borrowers.getJSONObject(i);
-            System.out.println(" * " + borrower.getString("date"));
+            if(!suscriber.borrowing.isEmpty()) {
+                System.out.println(" * " + suscriber);
+                System.out.println("\tis borrowing:");
+                for(Book book: suscriber.borrowing) {
+                    System.out.println("\t - " + book);
+                }
+            }
         }
     }
 }

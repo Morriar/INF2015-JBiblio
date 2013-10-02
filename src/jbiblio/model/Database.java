@@ -34,6 +34,7 @@ public class Database {
     public Database() throws FileNotFoundException, IOException {
         this.books = loadBooks();
         this.suscribers = loadSuscribers();
+        loadBorrowers();
     }
 
     private Map<Integer, Book> loadBooks() throws FileNotFoundException, IOException {
@@ -62,6 +63,23 @@ public class Database {
         }
 
         return suscribers;
+    }
+
+    private void loadBorrowers() throws FileNotFoundException, IOException {
+        String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
+        JSONArray borrowers = JSONArray.fromObject(borrowersStr);
+
+        for (int i = 0; i < borrowers.size(); i++) {
+            JSONObject borrower = borrowers.getJSONObject(i);
+            Integer suscriberId = borrower.getInt("suscriber_id");
+            Suscriber suscriber = suscribers.get(suscriberId);
+            JSONArray bookJson = borrower.getJSONArray("book_ids");
+            for (int j = 0; j < bookJson.size(); j++) {
+                Integer bookId = bookJson.getInt(j);
+                Book book = books.get(bookId);
+                suscriber.borrowing.add(book);
+            }
+        }
     }
 
     // return null if there is no book with this id

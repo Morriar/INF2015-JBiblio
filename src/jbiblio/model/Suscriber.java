@@ -15,6 +15,8 @@
  */
 package jbiblio.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.sf.json.JSONObject;
 
 /**
@@ -23,6 +25,7 @@ public class Suscriber {
     public Integer id;
     public String firstname;
     public String lastname;
+    public List<Book> borrowing = new ArrayList<Book>();
 
     public Suscriber(Integer id, String firstname, String lastname) {
         this.id = id;
