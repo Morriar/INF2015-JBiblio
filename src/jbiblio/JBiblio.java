@@ -15,39 +15,23 @@
  */
 package jbiblio;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import jbiblio.model.Book;
 import jbiblio.model.Database;
 import jbiblio.model.Suscriber;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import utils.FileReader;
 
-/**
- *
- */
 public class JBiblio {
 
-    static Database database;
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         try {
-            JBiblio.database = new Database("json/books.json", "json/suscribers.json", "json/borrowers.json");
+            Database database = new Database("json/books.json", "json/suscribers.json", "json/borrowers.json");
+            listSuscribers(database);
         } catch(Exception e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
-            return;
         }
-
-        // list all suscribers in database
-        listSuscribers();
     }
 
-    public static void listSuscribers() {
+    public static void listSuscribers(Database database) {
         System.out.println("List of suscribers:");
         for (Suscriber suscriber: database.getSuscribers()) {
             if(!suscriber.isBorrowing()) {
