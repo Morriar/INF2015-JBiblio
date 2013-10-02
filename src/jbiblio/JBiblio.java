@@ -44,10 +44,10 @@ public class JBiblio {
     public static void listSuscribers() {
         System.out.println("List of suscribers:");
         for (Suscriber suscriber: database.getSuscribers()) {
-            if(!suscriber.borrowing.isEmpty()) {
+            if(!suscriber.isBorrowing()) {
                 System.out.println(" * " + suscriber);
                 System.out.println("\tis borrowing:");
-                for(Book book: suscriber.borrowing) {
+                for(Book book: suscriber.getBorrowedBooks()) {
                     System.out.println("\t - " + book + " since " + database.borrowing.get(book));
                 }
             }

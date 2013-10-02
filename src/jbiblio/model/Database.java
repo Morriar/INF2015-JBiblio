@@ -60,7 +60,7 @@ public class Database {
         for (int i = 0; i < suscribersJson.size(); i++) {
             JSONObject suscriberJson = suscribersJson.getJSONObject(i);
             Suscriber suscriber = Suscriber.fromJSONObject(suscriberJson);
-            suscribers.put(suscriber.id, suscriber);
+            suscribers.put(suscriber.getId(), suscriber);
         }
 
         return suscribers;

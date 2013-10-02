@@ -16,16 +16,18 @@
 package jbiblio.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import net.sf.json.JSONObject;
 
 /**
+ * A Suscriber can is a person that can borrow books
  */
 public class Suscriber {
-    public Integer id;
-    public String firstname;
-    public String lastname;
-    public List<Book> borrowing = new ArrayList<Book>();
+    Integer id;
+    String firstname;
+    String lastname;
+    List<Book> borrowing = new ArrayList<Book>();
 
     public Suscriber(Integer id, String firstname, String lastname) {
         this.id = id;
@@ -35,13 +37,35 @@ public class Suscriber {
 
     @Override
     public String toString() {
-        return "(" + id + ") " + firstname + " " + lastname;
+        return "(" + getId() + ") " + getFirstname() + " " + getLastname();
     }
 
+    // create a Suscriber by its JSONObject
     public static Suscriber fromJSONObject(JSONObject suscriber) {
         Integer id = suscriber.getInt("id");
         String firstname = suscriber.getString("firstname");
         String lastname = suscriber.getString("lastname");
         return new Suscriber(id, firstname, lastname);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    // return a read only collection of books
+    public List<Book> getBorrowedBooks() {
+        return Collections.unmodifiableList(borrowing);
+    }
+
+    public Boolean isBorrowing() {
+        return borrowing.isEmpty();
     }
 }
