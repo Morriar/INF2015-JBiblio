@@ -18,11 +18,12 @@ package jbiblio.model;
 import net.sf.json.JSONObject;
 
 /**
+ * A Book identified by its id
  */
 public class Book {
-    public Integer id;
-    public String title;
-    public String author;
+    Integer id;
+    String title;
+    String author;
 
     public Book(Integer id, String title, String author) {
         this.id = id;
@@ -32,13 +33,38 @@ public class Book {
 
     @Override
     public String toString() {
-        return "(" + id + ") " + title + " - " + author;
+        return "(" + getId() + ") " + getTitle() + " - " + getAuthor();
     }
 
+    // create a new Book based on a JSONObject
     public static Book fromJSONObject(JSONObject book) {
         Integer id = book.getInt("id");
         String title = book.getString("title");
         String author = book.getString("author");
         return new Book(id, title, author);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
