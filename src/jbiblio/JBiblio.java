@@ -34,8 +34,14 @@ public class JBiblio {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        JBiblio.database = new Database();
+    public static void main(String[] args) {
+        try {
+            JBiblio.database = new Database("json/books.json", "json/suscribers.json", "json/borrowers.json");
+        } catch(Exception e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getCause());
+            return;
+        }
 
         // list all suscribers in database
         listSuscribers();

@@ -32,14 +32,18 @@ public class Database {
     private Map<Integer, Suscriber> suscribers;
     public Map<Book, String> borrowing;
 
-    public Database() throws FileNotFoundException, IOException {
-        this.books = loadBooks();
-        this.suscribers = loadSuscribers();
-        this.borrowing = loadBorrowers();
+    public Database(String booksFile, String suscribersFile, String borrowFile) throws Exception {
+        try {
+            this.books = loadBooks(booksFile);
+            this.suscribers = loadSuscribers(suscribersFile);
+            this.borrowing = loadBorrowers(borrowFile);
+        } catch (Exception e) {
+            throw new Exception("Error: Cannot load database", e);
+        }
     }
 
-    private Map<Integer, Book> loadBooks() throws FileNotFoundException, IOException {
-        String booksStr = FileReader.loadFileIntoString("json/books.json", "utf-8");
+    private Map<Integer, Book> loadBooks(String file) throws FileNotFoundException, IOException {
+        String booksStr = FileReader.loadFileIntoString(file, "utf-8");
         JSONArray booksJson = JSONArray.fromObject(booksStr);
 
         Map<Integer, Book> books = new HashMap<Integer, Book>();
@@ -52,8 +56,8 @@ public class Database {
         return books;
     }
 
-    private Map<Integer, Suscriber> loadSuscribers() throws FileNotFoundException, IOException {
-        String suscribersStr = FileReader.loadFileIntoString("json/suscribers.json", "utf-8");
+    private Map<Integer, Suscriber> loadSuscribers(String file) throws FileNotFoundException, IOException {
+        String suscribersStr = FileReader.loadFileIntoString(file, "utf-8");
         JSONArray suscribersJson = JSONArray.fromObject(suscribersStr);
 
         Map<Integer, Suscriber> suscribers = new HashMap<Integer, Suscriber>();
@@ -66,8 +70,8 @@ public class Database {
         return suscribers;
     }
 
-    private Map<Book, String> loadBorrowers() throws FileNotFoundException, IOException {
-        String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
+    private Map<Book, String> loadBorrowers(String file) throws FileNotFoundException, IOException {
+        String borrowersStr = FileReader.loadFileIntoString(file, "utf-8");
         JSONArray borrowers = JSONArray.fromObject(borrowersStr);
 
         Map<Book, String> borrowing = new HashMap<Book, String>();
