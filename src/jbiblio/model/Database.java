@@ -17,12 +17,9 @@ package jbiblio.model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import jbiblio.JBiblio;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import utils.FileReader;
@@ -32,7 +29,7 @@ import utils.FileReader;
  */
 public class Database {
     private Map<Integer, Book> books;
-    public List<Suscriber> suscribers;
+    private Map<Integer, Suscriber> suscribers;
 
     public Database() throws FileNotFoundException, IOException {
         this.books = loadBooks();
@@ -53,14 +50,15 @@ public class Database {
         return books;
     }
 
-    private List<Suscriber> loadSuscribers() throws FileNotFoundException, IOException {
+    private Map<Integer, Suscriber> loadSuscribers() throws FileNotFoundException, IOException {
         String suscribersStr = FileReader.loadFileIntoString("json/suscribers.json", "utf-8");
         JSONArray suscribersJson = JSONArray.fromObject(suscribersStr);
 
-        List<Suscriber> suscribers = new ArrayList<Suscriber>();
+        Map<Integer, Suscriber> suscribers = new HashMap<Integer, Suscriber>();
         for (int i = 0; i < suscribersJson.size(); i++) {
             JSONObject suscriberJson = suscribersJson.getJSONObject(i);
-            suscribers.add(Suscriber.fromJSONObject(suscriberJson));
+            Suscriber suscriber = Suscriber.fromJSONObject(suscriberJson);
+            suscribers.put(suscriber.id, suscriber);
         }
 
         return suscribers;
@@ -74,8 +72,20 @@ public class Database {
         return null;
     }
 
+    // return null if there is no suscriber with this id
+    public Suscriber getSuscriberById(Integer id) {
+        if(suscribers.containsKey(id)) {
+            return suscribers.get(id);
+        }
+        return null;
+    }
+
     public Collection<Book> getBooks() {
         return books.values();
+    }
+
+    public Collection<Suscriber> getSuscribers() {
+        return suscribers.values();
     }
 
 }

@@ -48,6 +48,9 @@ public class JBiblio {
 
         // get a book by its id
         System.out.println(database.getBookById(5));
+
+        // get a suscriber by its id
+        System.out.println(database.getSuscriberById(5));
     }
 
     public static void listBooks() {
@@ -59,7 +62,7 @@ public class JBiblio {
 
     public static void listSuscribers() {
         System.out.println("List of suscribers:");
-        for (Suscriber suscriber: database.suscribers) {
+        for (Suscriber suscriber: database.getSuscribers()) {
             System.out.println(" * " + suscriber);
         }
     }
