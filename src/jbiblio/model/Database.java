@@ -18,6 +18,7 @@ package jbiblio.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ import utils.FileReader;
  * A database unify datas from the json file
  */
 public class Database {
-    public Map<Integer, Book> books;
+    private Map<Integer, Book> books;
     public List<Suscriber> suscribers;
 
     public Database() throws FileNotFoundException, IOException {
@@ -71,6 +72,10 @@ public class Database {
             return books.get(id);
         }
         return null;
+    }
+
+    public Collection<Book> getBooks() {
+        return books.values();
     }
 
 }
