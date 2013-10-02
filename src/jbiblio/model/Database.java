@@ -30,11 +30,12 @@ import utils.FileReader;
 public class Database {
     private Map<Integer, Book> books;
     private Map<Integer, Suscriber> suscribers;
+    public Map<Book, String> borrowing;
 
     public Database() throws FileNotFoundException, IOException {
         this.books = loadBooks();
         this.suscribers = loadSuscribers();
-        loadBorrowers();
+        this.borrowing = loadBorrowers();
     }
 
     private Map<Integer, Book> loadBooks() throws FileNotFoundException, IOException {
@@ -65,21 +66,25 @@ public class Database {
         return suscribers;
     }
 
-    private void loadBorrowers() throws FileNotFoundException, IOException {
+    private Map<Book, String> loadBorrowers() throws FileNotFoundException, IOException {
         String borrowersStr = FileReader.loadFileIntoString("json/borrowers.json", "utf-8");
         JSONArray borrowers = JSONArray.fromObject(borrowersStr);
 
+        Map<Book, String> borrowing = new HashMap<Book, String>();
         for (int i = 0; i < borrowers.size(); i++) {
             JSONObject borrower = borrowers.getJSONObject(i);
             Integer suscriberId = borrower.getInt("suscriber_id");
             Suscriber suscriber = suscribers.get(suscriberId);
+            String date = borrower.getString("date");
             JSONArray bookJson = borrower.getJSONArray("book_ids");
             for (int j = 0; j < bookJson.size(); j++) {
                 Integer bookId = bookJson.getInt(j);
                 Book book = books.get(bookId);
                 suscriber.borrowing.add(book);
+                borrowing.put(book, date);
             }
         }
+        return borrowing;
     }
 
     // return null if there is no book with this id

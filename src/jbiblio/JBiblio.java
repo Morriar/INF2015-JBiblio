@@ -48,7 +48,7 @@ public class JBiblio {
                 System.out.println(" * " + suscriber);
                 System.out.println("\tis borrowing:");
                 for(Book book: suscriber.borrowing) {
-                    System.out.println("\t - " + book);
+                    System.out.println("\t - " + book + " since " + database.borrowing.get(book));
                 }
             }
         }
